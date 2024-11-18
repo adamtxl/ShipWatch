@@ -1,23 +1,22 @@
-# app.py
-from flask import Flask, jsonify
+from flask import Flask
+from models import db
+from routes import register_routes
+from config import Config
 
+# Initialize the Flask app
 app = Flask(__name__)
+app.config.from_object(Config)
 
-@app.route('/')
-def home():
-    return "Hello, Flask!"
+# Initialize database
+db.init_app(app)
 
-# New route for API
-@app.route('/api/cruise_prices', methods=['GET'])
-def get_cruise_prices():
-    sample_data = {
-        "cruises": [
-            {"destination": "Bahamas", "price": "$500"},
-            {"destination": "Alaska", "price": "$1200"},
-            {"destination": "Mediterranean", "price": "$900"}
-        ]
-    }
-    return jsonify(sample_data)
+# Register routes
+register_routes(app)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=app.config['DEBUG'])
+
+    # Add this temporarily to app.py or config.py
+print("Database URL:", Config.SQLALCHEMY_DATABASE_URI)
+print("Secret Key:", Config.SECRET_KEY)
+print("Debug Mode:", Config.DEBUG)
