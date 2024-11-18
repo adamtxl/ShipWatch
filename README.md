@@ -1,34 +1,109 @@
+
 # ShipWatch
 
-ShipWatch is an app designed to help users track cruise prices, so they can find the best deals for their next voyage. This app scrapes cruise pricing data, serves it through a Flask backend, and can notify users of price changes.
+**ShipWatch** is a cruise price tracking application designed to help users search for cruises, save searches, track price changes, and receive notifications when relevant deals are found. This project is in its infancy, and functionality is being developed incrementally.
 
-## Features
+---
 
-- **Cruise Price Tracking**: Monitor prices for various cruises to find the best time to book.
-- **User Notifications**: Get alerts when cruise prices drop.
-- **Browse Destinations**: View available cruises and filter by destinations.
-- **Historical Price Trends** (Planned): View trends to help with booking decisions.
+## **Current Version**
 
-## Technologies Used
+- **Version:** 0.0.0.1
+- **Status:** Pre-alpha (basic framework set up)
 
-- **Python**: Core programming language for backend and data processing.
-- **Flask**: Web framework to build the backend and API.
-- **Requests**: Library used for web scraping and fetching cruise data.
-- **HTML & CSS**: Basic frontend templates (if applicable).
-- **Jinja2**: Templating engine for rendering HTML with dynamic data.
+---
 
-## Getting Started
+## **Core Features**
 
-To get a local copy up and running, follow these steps:
+### Future Features (Planned)
+- **User Authentication**
+  - Users can register, log in, and log out securely.
+  - Users will have profiles to set preferences and manage saved searches.
+
+- **Cruise Search**
+  - Integrate with external APIs to fetch cruise results in real-time.
+  - Allow users to filter results by destination, price, cruise line, etc.
+
+- **Save Searches**
+  - Enable users to save search criteria for quick reuse.
+  - Store search data in a PostgreSQL database.
+
+- **Track Cruises**
+  - Allow users to watch specific cruises for price changes.
+  - Display historical price trends for tracked cruises.
+
+- **Notifications**
+  - Send email alerts when saved searches match new results.
+  - Notify users of price changes for tracked cruises.
+
+---
+
+## **Current Functionality**
+
+| Feature                   | Status         | Notes                              |
+|---------------------------|----------------|------------------------------------|
+| Basic Framework           | ✅ In place    | Flask API and placeholder route   |
+| Cruise Search API         | 🚧 In progress | Returns hardcoded sample data     |
+| User Authentication       | 🚧 Not started |                                    |
+| Save Searches             | 🚧 Not started |                                    |
+| Track Cruises             | 🚧 Not started |                                    |
+| Notifications             | 🚧 Not started |                                    |
+| Database Setup            | 🚧 Not started | PostgreSQL schema pending design  |
+
+---
+
+## **Development Setup**
 
 ### Prerequisites
-
-- **Python 3.12** or newer
-- **pip** (Python package installer)
+- Python 3.9+
+- PostgreSQL
+- Flask
 
 ### Installation
-
-1. **Clone the repository**:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/ShipWatch.git
-   cd ShipWatch
+   git clone https://github.com/username/shipwatch.git
+   cd shipwatch
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Start the server:
+   ```bash
+   python app.py
+   ```
+4. Access the app at [http://127.0.0.1:5000](http://127.0.0.1:5000).
+
+---
+
+## **Roadmap**
+
+### **Version 0.0.0.1**
+- [x] Create Flask app with basic structure.
+- [x] Add placeholder route for `/api/cruise_prices`.
+- [ ] Define app functionality and database schema.
+
+### **Version 0.1.0**
+- [ ] Implement basic user authentication (log in, log out).
+- [ ] Set up database with PostgreSQL.
+- [ ] Connect `/api/cruise_prices` to fetch real cruise data via API.
+
+### **Version 0.2.0**
+- [ ] Enable saving searches and tracking specific cruises.
+- [ ] Add notification system for saved searches.
+
+### **Version 0.3.0**
+- [ ] Refine UI for search and saved results.
+- [ ] Add data visualization for price trends.
+
+---
+
+## **Contributing**
+
+We welcome contributions! Please fork the repository and submit a pull request for review.
+
+---
+
+## **License**
+
+This project is licensed under the MIT License.
