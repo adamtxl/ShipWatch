@@ -33,7 +33,17 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message": "User registered successfully"}), 201
+    # Generate JWT token for the new user
+    access_token = create_access_token(
+        identity=str(new_user.id),  # Pass user.id as the identity
+        additional_claims={"username": new_user.username},  # Include additional claims if needed
+        expires_delta=timedelta(hours=1)
+    )
+
+    return jsonify({
+        "message": "User registered successfully",
+        "access_token": access_token
+    }), 201
 
 # User Login Route
 @auth_bp.route('/login', methods=['POST'])
@@ -53,7 +63,11 @@ def login():
         return jsonify({"error": "Invalid credentials"}), 401
 
     # Generate JWT token
-    access_token = create_access_token(identity={"id": user.id, "username": user.username}, expires_delta=timedelta(hours=1))
+    access_token = create_access_token(
+        identity=str(user.id),  # Pass user.id as the identity
+        additional_claims={"username": user.username},  # Add extra claims if needed
+        expires_delta=timedelta(hours=1)
+    )
 
     return jsonify({"access_token": access_token, "message": f"Welcome, {user.username}!"}), 200
 
@@ -61,5 +75,5 @@ def login():
 @auth_bp.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
-    current_user = get_jwt_identity()
+    current_user = get_jwt_identity()  # This will return user.id as a string
     return jsonify({"logged_in_as": current_user}), 200

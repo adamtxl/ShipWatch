@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from routes import register_routes
 from config import Config
 from flask_jwt_extended import JWTManager
+from routes.searches import searches_bp
 
 
 def create_app():
