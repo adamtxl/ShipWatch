@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from datetime import timedelta
 from models import db
 from models.user import User
 
@@ -50,11 +52,14 @@ def login():
     if not user or not check_password_hash(user.password, password):
         return jsonify({"error": "Invalid credentials"}), 401
 
-    # Simulate generating a session or token (add real token handling later)
-    return jsonify({"message": f"Welcome, {user.username}!"}), 200
+    # Generate JWT token
+    access_token = create_access_token(identity={"id": user.id, "username": user.username}, expires_delta=timedelta(hours=1))
 
-# User Logout Route (optional, for session-based auth)
-@auth_bp.route('/logout', methods=['POST'])
-def logout():
-    # Placeholder for logout functionality
-    return jsonify({"message": "Logged out successfully"}), 200
+    return jsonify({"access_token": access_token, "message": f"Welcome, {user.username}!"}), 200
+
+# Protected Route Example
+@auth_bp.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify({"logged_in_as": current_user}), 200
