@@ -61,7 +61,7 @@
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/shipwatch.git
+   git clone https://github.com/adamtxl/shipwatch.git
    cd shipwatch
    ```
 2. Install dependencies:
